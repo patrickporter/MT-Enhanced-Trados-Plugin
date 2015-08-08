@@ -1,0 +1,36 @@
+﻿<Project xmlns='http://schemas.microsoft.com/developer/msbuild/2003' ToolsVersion="12.0">
+
+  <UsingTask TaskName="CompressManifest" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll">
+    <ParameterGroup>
+      <ManifestFile ParameterType="System.String" Required="true" />
+      <PluginFile ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.IO.Compression"/>
+      <Reference Include="System.IO.Compression.FileSystem"/>
+      <Using Namespace="System.IO.Compression"/>
+      <Using Namespace="System.IO"/>
+      <Code Type="Fragment" Language="cs"><![CDATA[
+using (ZipArchive zipArchive = ZipFile.Open(PluginFile, ZipArchiveMode.Update))
+{ 
+  ZipArchiveEntry manifestEntry = null;
+  if (zipArchive.Entries != null && zipArchive.Entries.Count > 0)
+  {
+    foreach (ZipArchiveEntry entry in zipArchive.Entries)
+    {
+      if (entry.Name.Equals(Path.GetFileName(ManifestFile)))
+        manifestEntry = entry;
+    }
+  }
+  if (manifestEntry != null)
+  {
+    string path = manifestEntry.FullName;
+    manifestEntry.Delete();
+    zipArchive.CreateEntryFromFile(ManifestFile, path);
+  }
+}
+]]></Code>
+    </Task>
+  </UsingTask>
+
+</Project>

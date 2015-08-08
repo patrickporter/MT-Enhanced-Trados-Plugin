@@ -1,0 +1,38 @@
+﻿<Project xmlns='http://schemas.microsoft.com/developer/msbuild/2003' ToolsVersion="12.0">
+
+  <UsingTask TaskName="CopyReferences" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll">
+    <ParameterGroup>
+      <BuildVersion ParameterType="System.String" Required="true" />
+      <DestinationFolder ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System.IO"/>
+      <Code Type="Fragment" Language="cs"><![CDATA[
+string sourcefolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+if(BuildVersion.Equals("v2015_Debug") || BuildVersion.Equals("v2015_Release"))
+{
+  sourcefolder += @"\SDL\SDL Trados Studio\Studio4\";
+}
+else if(BuildVersion.Equals("v2014_Debug") || BuildVersion.Equals("v2014_Release"))
+{
+  sourcefolder += @"\SDL\SDL Trados Studio\Studio3\";
+}
+else if(BuildVersion.Equals("v2011_Debug") || BuildVersion.Equals("v2011_Release"))
+{
+  sourcefolder += @"\SDL\SDL Trados Studio\Studio2\";
+}
+
+string[] libraries = { "Sdl.Core.Globalization.dll", "Sdl.Core.PluginFramework.dll", "Sdl.LanguagePlatform.Core.dll", "Sdl.LanguagePlatform.TranslationMemory.dll", "Sdl.LanguagePlatform.TranslationMemoryApi.dll" };
+            
+foreach(string library in libraries)
+{
+  string source = sourcefolder + library;
+  string destination =DestinationFolder + library;
+  File.Copy(source, destination, true);
+}
+
+]]></Code>
+    </Task>
+  </UsingTask>
+
+</Project>

@@ -1,0 +1,48 @@
+﻿<Project xmlns='http://schemas.microsoft.com/developer/msbuild/2003' ToolsVersion="12.0">
+
+  <UsingTask TaskName="UpdateManifest" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll">
+    <ParameterGroup>
+      <ManifestFile ParameterType="System.String" Required="true" />
+      <BuildVersion ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Xml"/>
+      <Using Namespace="System.Xml"/>
+      <Using Namespace="System.IO"/>
+      <Code Type="Fragment" Language="cs"><![CDATA[
+string contents = "";
+using(StreamReader reader = new StreamReader(ManifestFile))
+{
+  contents=reader.ReadToEnd();
+}
+string minVersion = "";
+string maxVersion = "";
+if(BuildVersion.Equals("v2015_Debug") || BuildVersion.Equals("v2015_Release"))
+{
+  minVersion = "12.0";
+  maxVersion = "12.9";
+}
+else if(BuildVersion.Equals("v2014_Debug") || BuildVersion.Equals("v2014_Release"))
+{
+  minVersion = "11.0";
+  maxVersion = "11.9";
+}
+else if(BuildVersion.Equals("v2011_Debug") || BuildVersion.Equals("v2011_Release"))
+{
+  minVersion = "9.0";
+  maxVersion = "10.9";
+}
+
+XmlDocument xmlDoc = new XmlDocument();
+xmlDoc.LoadXml(contents);
+xmlDoc["PluginPackage"]["RequiredProduct"].SetAttribute("maxversion", maxVersion);
+xmlDoc["PluginPackage"]["RequiredProduct"].SetAttribute("minversion", minVersion);
+XmlTextWriter wr = new XmlTextWriter(ManifestFile, Encoding.UTF8);
+wr.Formatting = Formatting.Indented; 
+xmlDoc.Save(wr);
+wr.Close();
+]]></Code>
+    </Task>
+  </UsingTask>
+
+</Project>
