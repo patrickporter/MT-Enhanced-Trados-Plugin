@@ -8,4 +8,4 @@ Also add the necessary SDL references to the SDL_references folder (see referenc
 
 The solution and project target 3 versions of SDL Trados Studio (2011, 2014, and 2015) with one Visual Studio project.  The code is the same for all versions, but the plugin must be build against different library versions and different .NET framework versions.
 
-Read [here](http://www.linguisticproductions.com/target-all-versions-of-trados-studio-with-a-single-plugin-project) for more info on targeting multiple versions of Trados Studio with a single Visual Studio project.
+Read <a href="http://www.linguisticproductions.com/target-all-versions-of-trados-studio-with-a-single-plugin-project" target="_blank">here</a> for more info on targeting multiple versions of Trados Studio with a single Visual Studio project.
