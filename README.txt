@@ -1,4 +1,4 @@
-<h2>MT Enhanced Trados Plugin</h2>
+# MT Enhanced Trados Plugin
 
 A plugin for SDL Trados Studio that allows connecting to Google Translate or Microsoft Translator, with additional features like batch find/replace in both directions.
 
