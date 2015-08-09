@@ -324,8 +324,8 @@
     <CompressManifest ManifestFile="$(ProjectDir)\pluginpackage.manifest.xml" PluginFile="$(OutDir)\$(ProjectName).sdlplugin" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>explorer "E:\MyDocuments\Visual Studio 2008\Projects\MtEnhancedTradosPlugin\MtEnhancedTradosPlugin\PostBuildScripts"
-exit 0</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
