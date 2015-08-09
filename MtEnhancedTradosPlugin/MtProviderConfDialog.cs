@@ -35,6 +35,8 @@ namespace MtEnhancedTradosPlugin
         Uri uriGt;
         TranslationProviderCredential gtCred;
         TranslationProviderCredential msCred;
+        const string msTranslatorString = "Microsoft Translator"; //these strings should not be localized or changed and are therefore hard-coded as constants
+        const string gTranslateString = "Google Translate"; //these strings should not be localized or changed and are therefore hard-coded as constants
 
 
         #region "ProviderConfDialog"
@@ -196,13 +198,13 @@ namespace MtEnhancedTradosPlugin
 
         private void ShowCredBox()
         {
-            if (comboProvider.Text.Equals("Google Translate")) //these strings should not be localized and are therefore hard-coded
+            if (comboProvider.Text.Equals(gTranslateString)) //these strings should not be localized and are therefore hard-coded
             {
                 groupBoxGT.Location = showcredsloc;
                 groupBoxMT.Hide();
                 groupBoxGT.Show();
             }
-            else if (comboProvider.Text.Equals("Microsoft Translator")) //these strings should not be localized and are therefore hard-coded
+            else if (comboProvider.Text.Equals(msTranslatorString)) //these strings should not be localized and are therefore hard-coded
             {
                 groupBoxMT.Location = showcredsloc;
                 groupBoxGT.Hide();
@@ -292,19 +294,19 @@ namespace MtEnhancedTradosPlugin
                 prompt += newLine + MtProviderConfDialogResources.validationMessageNoProvider;
                 result = false;
             }
-            if (comboProvider.Text.Equals("Microsoft Translator") //these strings should not be localized and are therefore hard-coded
+            if (comboProvider.Text.Equals(msTranslatorString) //these strings should not be localized and are therefore hard-coded
                 && txtClientId.Text == string.Empty)
             {
                 prompt += newLine + MtProviderConfDialogResources.validationMessageNoClientId;
                 result = false;
             }
-            if (comboProvider.Text.Equals("Micrososft Translator") //these strings should not be localized and are therefore hard-coded
+            if (comboProvider.Text.Equals(msTranslatorString) //these strings should not be localized and are therefore hard-coded
                 && txtClientSecret.Text == string.Empty)
             {
                 prompt += newLine + MtProviderConfDialogResources.validationMessageNoClientSecret;
                 result = false;
             }
-            if (comboProvider.Text.Equals("Google Translate") //these strings should not be localized and are therefore hard-coded
+            if (comboProvider.Text.Equals(gTranslateString) //these strings should not be localized and are therefore hard-coded
                 && textApiKey.Text == string.Empty)
             {
                 prompt += newLine + MtProviderConfDialogResources.validationMessageNoApiKey;

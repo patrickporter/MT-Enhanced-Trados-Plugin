@@ -30,7 +30,8 @@ namespace MtEnhancedTradosPlugin
         private static string _apiKey;
         private static string _clientsecret;
         private static string _clientid;
-        
+        const string msTranslatorString = "Microsoft Translator"; //these strings should not be localized or changed and are therefore hard-coded as constants
+        const string gTranslateString = "Google Translate"; //these strings should not be localized or changed and are therefore hard-coded as constants
         
         #region "TranslationMethod"
         //The translation method affects when/if the plugin gets called by Studio
@@ -123,9 +124,9 @@ namespace MtEnhancedTradosPlugin
         public static string GetProviderTypeDescription(ProviderType type)
         {
             if (type == ProviderType.GoogleTranslate)
-                return "Google Translate"; //these strings should not be localized and are therefore hard-coded
+                return gTranslateString; //these strings should not be localized and are therefore hard-coded
             else if (type == ProviderType.MicrosoftTranslator)
-                return "Microsoft Translator"; //these strings should not be localized and are therefore hard-coded
+                return msTranslatorString; //these strings should not be localized and are therefore hard-coded
             else
                 return "";
         }
@@ -136,9 +137,9 @@ namespace MtEnhancedTradosPlugin
             //the solution seems to be to not translate the names for 'Google Translate' and 'Microsoft Translator' ...they both leave it untranslated in their documentation in other languages
             if (typeString == null)
                 return ProviderType.None;
-            else if (typeString.Equals("Google Translate")) //these strings should not be localized and are therefore hard-coded
+            else if (typeString.Equals(gTranslateString)) //these strings should not be localized and are therefore hard-coded
                 return ProviderType.GoogleTranslate;
-            else if (typeString.Equals("Microsoft Translator")) //these strings should not be localized and are therefore hard-coded
+            else if (typeString.Equals(msTranslatorString)) //these strings should not be localized and are therefore hard-coded
                 return ProviderType.MicrosoftTranslator;
             else
                 return ProviderType.None;
