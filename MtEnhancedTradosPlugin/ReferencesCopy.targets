@@ -26,9 +26,21 @@ string[] libraries = { "Sdl.Core.Globalization.dll", "Sdl.Core.PluginFramework.d
             
 foreach(string library in libraries)
 {
-  string source = sourcefolder + library;
-  string destination =DestinationFolder + library;
-  File.Copy(source, destination, true);
+  bool done = false;
+  while (!done)
+  {
+    try
+    {
+      string source = sourcefolder + library;
+      string destination = DestinationFolder + library;
+      File.Copy(source, destination, true);
+      done = true;
+    }
+    catch (IOException iox)
+    {
+      done = false;
+    }
+  }
 }
 
 ]]></Code>
