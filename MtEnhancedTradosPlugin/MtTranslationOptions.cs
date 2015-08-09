@@ -138,7 +138,7 @@ namespace MtEnhancedTradosPlugin
                 return ProviderType.None;
             else if (typeString.Equals("Google Translate")) //these strings should not be localized and are therefore hard-coded
                 return ProviderType.GoogleTranslate;
-            else if (typeString.Equals("Micrososft Translator")) //these strings should not be localized and are therefore hard-coded
+            else if (typeString.Equals("Microsoft Translator")) //these strings should not be localized and are therefore hard-coded
                 return ProviderType.MicrosoftTranslator;
             else
                 return ProviderType.None;
