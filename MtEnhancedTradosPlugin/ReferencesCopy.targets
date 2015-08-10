@@ -36,9 +36,24 @@ foreach(string library in libraries)
       File.Copy(source, destination, true);
       done = true;
     }
+    catch (DirectoryNotFoundException dx) 
+    { 
+      throw; 
+    }
+    catch (FileNotFoundException fx)
+    {
+      throw;
+    }
     catch (IOException iox)
     {
-      done = false;
+      if (iox.Message.Contains("being used by another process") || iox.Message.Contains("user-mapped section open")) //wait only if file is locked
+      {
+        done = false;
+      }
+      else
+      {
+         throw;
+      }
     }
   }
 }
