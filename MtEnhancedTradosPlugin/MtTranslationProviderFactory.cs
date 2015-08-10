@@ -53,10 +53,6 @@ namespace MtEnhancedTradosPlugin
             if (loadOptions.SelectedProvider == MtTranslationOptions.ProviderType.MicrosoftTranslator)
             {
                 Uri myUri = new Uri("mtenhancedprovidermst:///");
-                //get Microsoft credentials if stored; if not there is basically nothing we can do..since Studio is crazy
-                //i.e. if we throw the credential exception, then we can't change any options since no provider instance is passed to the UI class
-                //even if we use a static variable to set the options...the provider that this method returns is never saved in the project xml....not sure why
-                //if we try to open a form here, then there are multithreading issues
                 if (credentialStore.GetCredential(myUri) != null)
                 {
                     bool credPersists = credentialStore.GetCredential(myUri).Persist;
@@ -88,7 +84,9 @@ namespace MtEnhancedTradosPlugin
                 }
                 else
                 {
-                    throw new TranslationProviderAuthenticationException();
+                    throw new TranslationProviderAuthenticationException(); 
+                    //throwing this exception ends up causing Studio to call MtTranslationProviderWinFormsUI.GetCredentialsFromUser();
+                    //which we use to prompt the user to enter credentials
                 }
             }
             
