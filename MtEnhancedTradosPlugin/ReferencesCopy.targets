@@ -46,7 +46,8 @@ foreach(string library in libraries)
     }
     catch (IOException iox)
     {
-      if (iox.Message.Contains("being used by another process") || iox.Message.Contains("user-mapped section open")) //wait only if file is locked
+      //Log.LogMessage(iox.HResult.ToString(), MessageImportance.High);
+      if (iox.HResult==-2147023672) //wait only if file is locked..in MSBuild it will be "user mapped section open"....use HResult instead of message for environments localized other than Eng.
       {
         done = false;
       }
