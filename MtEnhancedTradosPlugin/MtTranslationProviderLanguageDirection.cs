@@ -155,19 +155,21 @@ namespace MtEnhancedTradosPlugin
             string sourceLang = SourceLanguage.ToString();
             string targetLang = TargetLanguage.ToString();
             string translatedText = "";
-
+            //a new seg avoids modifying the current segment object
+            Segment newseg = segment.Duplicate(); 
+        
             //do preedit if checked
-            bool sendTextOnly = _options.SendPlainTextOnly || !segment.HasTags;
+            bool sendTextOnly = _options.SendPlainTextOnly || !newseg.HasTags;
             if (!sendTextOnly)
             {
                 //do preedit with tagged segment
                 if (_options.UsePreEdit)
                 {
                     if (preLookupSegmentEditor == null) preLookupSegmentEditor = new SegmentEditor(_options.PreLookupFilename);
-                    segment = getEditedSegment(preLookupSegmentEditor, segment);
+                    newseg = getEditedSegment(preLookupSegmentEditor, newseg);
                 }
                 //return our tagged target segment
-                MtTranslationProviderTagPlacer tagplacer = new MtTranslationProviderTagPlacer(segment);
+                MtTranslationProviderTagPlacer tagplacer = new MtTranslationProviderTagPlacer(newseg);
                 ////tagplacer is constructed and gives us back a properly marked up source string for google
                 if (_options.SelectedProvider == MtTranslationOptions.ProviderType.GoogleTranslate)
                 {
@@ -189,15 +191,15 @@ namespace MtEnhancedTradosPlugin
             }
             else //only send plain text
             {
-                string sourcetext = segment.ToPlain();
+                string sourcetext = newseg.ToPlain();
                 //do preedit with string
                 if (_options.UsePreEdit)
                 {
                     if (preLookupSegmentEditor == null) preLookupSegmentEditor = new SegmentEditor(_options.PreLookupFilename);
                     sourcetext = getEditedString(preLookupSegmentEditor, sourcetext);
                     //change our source segment so it gets sent back with modified text to show in translation results window that it was changed before sending
-                    segment.Clear();
-                    segment.Add(sourcetext);
+                    newseg.Clear();
+                    newseg.Add(sourcetext);
                 }
 
                 //now do lookup
@@ -219,7 +221,7 @@ namespace MtEnhancedTradosPlugin
                 translation.Add(translatedText);
             }
 
-            results.Add(CreateSearchResult(segment, translation, segment.ToPlain()));
+            results.Add(CreateSearchResult(newseg, translation, newseg.ToPlain()));
 
             #endregion
 
