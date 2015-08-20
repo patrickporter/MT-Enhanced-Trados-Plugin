@@ -81,8 +81,7 @@ namespace MtEnhancedTradosPlugin
                 return text;
 
             
-            //FUTURE: for now limiting the read here to 20 in the loop..decide whether to do it this way
-            for (int i = 0; i< edcoll.Items.Count && i < 20; i++)
+            for (int i = 0; i< edcoll.Items.Count; i++)
             {
                 if (edcoll.Items[i].Enabled) //need to skip when disabled
                 {
