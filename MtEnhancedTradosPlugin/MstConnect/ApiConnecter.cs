@@ -247,7 +247,9 @@ namespace MstTranslateConnect
         private string convertLangCode(string languageCode)
         {
             //takes the language code input and converts it to one that MS Translate can use
-            
+            if (languageCode.Contains("sr-Cyrl")) return "sr-Cyrl";
+            if (languageCode.Contains("sr-Latn")) return "sr-Latn";
+
             CultureInfo ci = new CultureInfo(languageCode); //construct a CultureInfo object with the language code
             
             //deal with chinese..MS Translator has different ones
