@@ -2,7 +2,7 @@
 
 A plugin for SDL Trados Studio that allows connecting to Google Translate or Microsoft Translator, with additional features like batch find/replace in both directions.
 
-To build, add a strongly-named key file to the project called 'myKey.snk'
+To build, <b>it is necessary to add a strong name key file</b> to the project, and that key file <b>must</b> be named 'myKey.snk' (or otherwise change the name pointed to in the project properties, under 'Signing')
 
 Also add the necessary SDL references to the SDL_references folder (see references_readme.txt in that folder)
 
